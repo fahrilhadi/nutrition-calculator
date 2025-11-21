@@ -108,8 +108,8 @@ func EnergyFromKcal(kcal float64) EnergyKJ {
 	return EnergyKJ(kcal * 4.184)
 }
 
-func SodiumFromSalt(SaltMg float64) SodiumMilligram {
-	return SodiumMilligram(SaltMg / 2.5)
+func SodiumFromSalt(saltMg float64) SodiumMilligram {
+	return SodiumMilligram(saltMg / 2.5)
 }
 
 func GetNutritionalScore(n NutritionalData, st ScoreType) NutritionalScore {
@@ -145,12 +145,12 @@ func GetNutritionalScore(n NutritionalData, st ScoreType) NutritionalScore {
 
 func (ns NutritionalScore) GetNutriScore() string {
 	if ns.ScoreType == Food {
-		return scoreToLetter[getPointsFromRange(float64(ns.Value), )]
+		return scoreToLetter[getPointsFromRange(float64(ns.Value), []float64{ 18, 10, 2, -1 })]
 	}
 	if ns.ScoreType == Water {
-		return scoreToLetter[]
+		return scoreToLetter[0]
 	}
-	return scoreToLetter
+	return scoreToLetter[getPointsFromRange(float64(ns.Value), []float64{ 9, 5, 1, -2 })]
 }
 
 func getPointsFromRange(v float64, steps []float64) int {
